@@ -1,27 +1,16 @@
+const Server = require("./src/server");
+const router =  require("./src/routes/usuarios");
 const express = require('express');
-const { dbConnection } = require('./database/config');
+
 const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-
+const port = process.env.PORT || 3000;
 app.use(cors());
 
-//Base de datos
-dbConnection();
+const server = new Server(app, port, router);
 
-// admin_user
-// m9O1iTEiefYh0Bvk
+server.start();
 
-app.get('/', (req, res) => {
-
-    res.json({
-        ok:true,
-        msg: 'Holaa desde la db'
-    })
-
-})
-
-app.listen(process.env.port, () => {
-    console.log(`Servidor corriendo en el puerto ${process.env.port}`)
-})
+// ------------------------------------------------
